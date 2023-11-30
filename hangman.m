@@ -6,6 +6,10 @@ function hangman
     background = [getSpriteFromXY(test_scene, 2:11, 8:15)];
     foreground = ones(8,10);
 
+    % Draw title screen
+
+    % Draw 
+
     while(true)
     
         % draw no stick figure
