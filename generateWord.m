@@ -1,9 +1,7 @@
-function [selectedWord] = generateWord(wordFile)
+function selectedWord = generateWord()
+    importedWords = readmatrix("wordList.txt", "OutputType", "char");
 
-rndIndex = randi(length(wordFile));
+    rndIndex = randi(length(importedWords));
 
-selectedWord = wordFile(rndIndex);
-
-% For the input parameter, ex: wordFile = readmatrix("wordList.txt", "OutputType", "char");
-% then pass in wordFile 
+    selectedWord = importedWords{rndIndex};
 end

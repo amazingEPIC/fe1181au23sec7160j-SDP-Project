@@ -22,7 +22,7 @@ function hangman
     geh_waitUntilKeyPressed(game, "return");
 
     while (true)
-        unknownWord = "apple";
+        unknownWord = generateWord();
         usedLetters = string.empty;
         foundLetters = string.empty; 
         incorrectLetters = string.empty;
