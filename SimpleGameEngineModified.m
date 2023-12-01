@@ -22,7 +22,7 @@
 % The simpleGameEngine class inherets from the handle class because we
 % want the game objects to be updated by their methods, specifically
 % my_figure and my_image
-classdef simpleGameEngineModified < handle
+classdef SimpleGameEngineModified < handle
     properties
         sprites = {}; % color data of the sprites
         sprites_transparency = {}; % transparency data of the sprites
@@ -38,7 +38,7 @@ classdef simpleGameEngineModified < handle
     end
     
     methods
-        function obj = simpleGameEngineModified(sprites_fname, sprite_height, sprite_width, zoom, background_color, disableMargins)
+        function obj = SimpleGameEngineModified(sprites_fname, sprite_height, sprite_width, zoom, background_color, disableMargins)
             % simpleGameEngine
             % Input: 
             %  1. File name of sprite sheet as a character array

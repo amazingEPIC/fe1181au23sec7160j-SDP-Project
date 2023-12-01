@@ -1,7 +1,8 @@
 function hangman 
     clear
     clc
-    
+    censorWord("test", ["e"])
+
     % Converts character array to cell array, and from cell array to
     % string array
     ALPHABET_KEYS = convertCharsToStrings(num2cell('a':'z'));
@@ -32,13 +33,13 @@ function hangman
 
         geh_setTiles(game, 'foreground', 1:20, 1:16, 1, 1); % Clear foreground
 
-        while (numberOfIncorrectGuesses < allowedIncorrectGuesses && ~playerWon)
+        while (numberOfIncorrectGuesses < allowedIncorrectGuesses)
             charactersAllowedToGuess = setdiff(ALPHABET_KEYS, usedLetters);
 
             % Show guess to player, ask for input
             geh_setTiles(game, 'foreground', 1:20, 12:15, 1, 1); % clear bottom box
             geh_setTiles(game, 'foreground', 1:20, 12, 3:22, 33); % Current guess:
-            writeCenteredWord(game, censorWord(unknownWord, foundLetters), 13);
+            writeCenteredWord(game, "the word", 13);
             geh_setTiles(game, 'foreground', 1:20, 15, 3:22, 34); % Please type a letter on your keyboard.
             geh_draw(game);
         
@@ -55,9 +56,11 @@ function hangman
             if (playerGuessConfirmationInput == "return")
                 % Check if letter is CORRECT!
                 if (strfind(unknownWord, guessedLetter))
+                    fprintf("CORRECT GUESS!!!");
                     usedLetters(1, end + 1) = guessedLetter;
                     foundLetters(1, end + 1) = guessedLetter;
                 else
+                    fprintf("INCORRECT GUESS...");
                     numberOfIncorrectGuesses = numberOfIncorrectGuesses + 1;
                     usedLetters(1, end + 1) = guessedLetter;
                     incorrectLetters(1, end + 1) = guessedLetter;
@@ -72,10 +75,6 @@ function hangman
                 end
             end
 
-            if (censorWord(unknownWord, foundLetters) == unknownWord)
-                playerWon = true;
-            end
-
             % If not, continue anyways
         end
 
@@ -87,7 +86,6 @@ function hangman
         else
             geh_setTiles(game, 'foreground', 1:20, 12, 3:22, 31); 
         end
-        writeCenteredWord(game, unknownWord, 13);
 
         geh_setTiles(game, 'foreground', 1:20, 15, 3:22, 32); 
 
@@ -141,12 +139,12 @@ end
 function writeCenteredWord(obj, word, row)
     word = convertStringsToChars(word);
     printableLength = min(strlength(word), 9);
-    for i=1:printableLength
+    for (i=1:printableLength)
         writeCharacter(obj, word(i), 10 - printableLength + i*2 - 1, row, "large", false);
     end
 end
 
 function censored = censorWord(originalWord, allowedLetters)
-    generatedRegex = join(['[^', allowedLetters, ']' ], ''); % selects all characters that aren't in allowedLetters
+    generatedRegex = join(['[^', allowedLetters, ']' ], ''); % selects all characters that aren't in allowedLette
     censored = regexprep(originalWord, generatedRegex, '_');
 end
